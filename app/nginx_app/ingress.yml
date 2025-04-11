@@ -2,15 +2,15 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: nginx-ingress
-  namespace: argocd
+  namespace: default
 spec:
   rules:
   - http:
       paths:
       - pathType: Prefix
-        path: /argocd
+        path: /
         backend:
           service:
-            name: argocd-server
+            name: nginx-service
             port:
               number: 80
