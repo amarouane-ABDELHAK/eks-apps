@@ -3,14 +3,21 @@ kind: Ingress
 metadata:
   name: nginx-ingress
   namespace: default
+  annotations:
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
 spec:
+  tls:
+  - hosts:
+    - kind.neo.nsstc.uah.edu
+    secretName: ingress-tls
   rules:
-  - http:
-      paths:
-      - pathType: Prefix
-        path: /
-        backend:
-          service:
-            name: nginx-service
-            port:
-              number: 80
+  - host: kind.neo.nsstc.uah.edu 
+    http:
+        paths:
+        - pathType: Prefix
+          path: /
+          backend:
+            service:
+              name: nginx-service
+              port:
+                number: 443
